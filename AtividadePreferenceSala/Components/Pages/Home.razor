@@ -1,8 +1,9 @@
 ﻿@page "/"
+@inject NavigationManager Navigation
 
 <h1>Atividades</h1>
 
-<table>
+<table class="table">
 	<thead>
 			<tr>
 			<th>Nome</th>
@@ -28,11 +29,18 @@
 @code {
 	private void NovaAtividade()
 	{
-		// Lógica para adicionar uma nova atividade
+		Navigation.NavigateTo("/nova");
 	}
 
 	private void FecharAplicativo()
 	{
-		// Lógica para fechar o aplicativo
+		#if ANDROID
+		Application.Current.Quit();
+
+		#elif WINDOWS
+		Application.Current.Quit();
+											
+		#endif	
+		
 	}
 }
