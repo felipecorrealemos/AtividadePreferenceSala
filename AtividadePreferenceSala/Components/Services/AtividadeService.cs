@@ -28,6 +28,20 @@ namespace AtividadePreferenceSala.Components.Services
             return lista;
         }
 
+        public bool Adicionar(Atividade atividade)
+        {
+            for (int i = 1; i <= LIMITE; i++) 
+            {
+                var chave = $"atividade{i}";
 
+                if (string.IsNullOrEmpty(Preferences.Get(chave, "")))
+                {
+                    Preferences.Set(chave, atividade.nome);
+                    return true;
+                }
+            }
+            
+            return false;
+        }
     }
 }
