@@ -1,0 +1,123 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    padding: 10px;
+    font-size: 18px; /* texto maior */
+}
+
+h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+button {
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    margin-right: 5px;
+}
+
+.btn-adicionar {
+    background-color: #0078D7;
+    color: white;
+    margin-top: 15px;
+    display: block;
+    width: 100%;
+}
+
+.btn-excluir {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    width: auto;               /* impede de ocupar 100% */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-excluir:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
+
+.btn-sair {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 95%;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.rodape {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+    .table th, .table td {
+        border: 1px solid #ccc;
+        padding: 12px;
+    }
+
+    .table td:last-child {
+        width: 110px; /* ajuste se quiser mais/menos espaço para o botão */
+        text-align: center;
+        vertical-align: middle;
+    }
+
+.selecionada {
+    background-color: #d1ecf1;
+}
+
+/* Adaptação para telas pequenas */
+@media (max-width: 600px) {
+    body {
+        font-size: 16px;
+    }
+
+    button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .table th, .table td {
+        font-size: 16px;
+        padding: 10px;
+    }
+    
+    .btn-excluir {
+        width: auto !important;
+        margin-bottom: 0;
+    }
+}
