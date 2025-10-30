@@ -17,7 +17,7 @@ namespace AtividadePreferenceSala.Components.Services
 
             for (int i = 1; i <= LIMITE; i++)
             {
-                var nome = Preferences.Get($"Atividade{i}", "");
+                var nome = Preferences.Get($"atividade{i}", "");
 
                 if (!string.IsNullOrEmpty(nome))
                 {
@@ -42,6 +42,19 @@ namespace AtividadePreferenceSala.Components.Services
             }
             
             return false;
+        }
+
+        public void Remover(Atividade atividade)
+        {
+            for (int i = 1; i <= LIMITE; i++)
+            {
+                var chave = $"atividade{i}";
+                if (Preferences.Get(chave, "") == atividade.nome)
+                {
+                    Preferences.Remove(chave);
+                    break;
+                }
+            }
         }
     }
 }

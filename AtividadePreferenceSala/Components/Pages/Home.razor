@@ -1,32 +1,58 @@
 ﻿@page "/"
-@inject NavigationManager Navigation
 
+<br />
+<br />
 <h1>Atividades</h1>
 
 <table class="table">
 	<thead>
-			<tr>
+		<tr>
 			<th>Nome</th>
-			</tr>
+			<th></th>
+		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<td>Atividade 1</td>
-		</tr>
-		
-		
+
+		@foreach (var atividade in new AtividadeService().Carregar())
+		{
+			<tr class="@((atividade == atividadeSelecionada ? "selecionada" : ""))">
+				<td>@atividade.nome</td>
+				<td>@if (atividade == atividadeSelecionada)
+					{
+						<button class="btn btn-danger" @onclick="() => Selecionar(atividade)">❌Cancelar Seleção</button>
+					}
+									
+				</td>
+			</tr>
+		}
 
 	</tbody>
-
-
 </table>
 
-<button class="btn btn-" @onclick="NovaAtividade">Adicionar Atividade</button>
-<button @onclick="FecharAplicativo">Sair</button>
+<br />
+<br />
+
+<button class="btn btn-primary" @onclick="NovaAtividade">➕Adicionar Atividade</button>
+<button class="btn btn-secondary" @onclick="FecharAplicativo">Sair</button>
 
 
 
 @code {
+	private Atividade? atividadeSelecionada;
+
+	private void Selecionar(Atividade a)
+	{
+		if (a == atividadeSelecionada)
+		{
+			atividadeSelecionada = null;
+		}
+
+		else
+		{
+			atividadeSelecionada = a;
+		}
+	}
+
 	private void NovaAtividade()
 	{
 		Navigation.NavigateTo("/nova");
@@ -34,13 +60,21 @@
 
 	private void FecharAplicativo()
 	{
-		#if ANDROID
+#if ANDROID
 		Application.Current.Quit();
 
-		#elif WINDOWS
+#elif WINDOWS
 		Application.Current.Quit();
-											
-		#endif	
-		
+
+#endif
+	}
+
+	private void ExcluirAtividade(Atividade a)
+	{
+		new AtividadeService().Remover(a);
+		if (a == atividadeSelecionada)
+		{
+			atividadeSelecionada = null;
+		}
 	}
 }

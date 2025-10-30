@@ -1,7 +1,63 @@
 ﻿@page "/nova"
 
+<br />
+<br />
 <h3>NovaAtividade</h3>
 
-@code {
+<input class="m-0" @bind="atividade.nome" placeholder="Digite o nome da atividade" required type="text" />
 
+<br />
+<br />
+<button class="btn btn-primary"  @onclick="SalvarAtividade" disabled="@botaoSalvarAtividade">➕Salvar Atividade</button>
+<button class="btn btn-secondary" @onclick="Voltar">Voltar</button>
+<br />
+<br />
+
+@if (!string.IsNullOrEmpty(mensagemErro))
+{
+	<label class="text-danger fw-bold">@mensagemErro</label>
+}
+
+@code {
+	Atividade atividade = new Atividade();
+	string mensagemErro = string.Empty;
+	bool botaoSalvarAtividade = false;
+
+	private async Task SalvarAtividade()
+	{
+		if (string.IsNullOrWhiteSpace(atividade.nome))
+		{
+			ExibirMensagemErro("O nome da atividade não pode estar vazio.");
+
+			return;
+		}
+
+		if (new AtividadeService().Adicionar(atividade))
+		{
+			ExibirMensagemErro("Cadastrado com sucesso");
+			botaoSalvarAtividade = true;
+			await Task.Delay(2000);
+			Voltar();
+		}
+
+		else
+		{
+			ExibirMensagemErro("Erro ao cadastrar atividade.");
+		}
+	}
+
+	private void Voltar()
+	{
+		// Lógica para salvar a atividade
+		Navigation.NavigateTo("/");
+	}
+
+	private async void ExibirMensagemErro(string mensagem)
+	{
+		mensagemErro = mensagem;
+		StateHasChanged();
+		await Task.Delay(2000);
+		mensagemErro = string.Empty;
+		await InvokeAsync(StateHasChanged);
+	}
 }
